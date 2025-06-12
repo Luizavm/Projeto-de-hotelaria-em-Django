@@ -47,6 +47,10 @@
     Nome de usuário: <code>Gerente01</code><br>
     Senha: <code>5+vYe9X6</code>
   </li>
+  <li><strong>Atendente:</strong><br>
+    Nome de usuário: <code>Atendente01</code><br>
+    Senha: <code>F}@8TlK76£y6</code>
+  </li>
 </ul>
 
 <h3>Por que esses usuários foram criados?</h3>
