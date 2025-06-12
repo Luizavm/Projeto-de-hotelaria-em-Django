@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    Adicionar colaboradores
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/addColaborador.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Novo atendente</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Confirmar</button>
+        </form>
+    </div>
+{% endblock %}

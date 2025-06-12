@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    Adicionar quartos
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/addquarto.css' %}">
+{% endblock %}
+
+{% block body %}
+    <form action="/addQuarto" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Confirmar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} 
+    Editar quartos
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/edit_quartos.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="header">
+        <h1>Editar Quarto {{ quarto.num_Quarto }}</h1>
+        <a href="{% url 'quartos_lista' %}" class="btn-back">← Voltar à Lista</a>
+    </div>
+    
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-container">
+        <div class="current-image">
+            {% if quarto.img %}
+                <img src="{{ quarto.img.url }}" alt="Quarto {{ quarto.num_Quarto }}" class="preview-img">
+                <p class="image-label">Imagem atual</p>
+            {% else %}
+                <div class="no-image">
+                    <span>Nenhuma imagem</span>
+                </div>
+            {% endif %}
+        </div>
+
+        <form action="{% url 'editQuarto' quarto.id %}" method="POST" enctype="multipart/form-data" class="edit-form">
+            {% csrf_token %}
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="{{ form.num_Quarto.id_for_label }}">{{ form.num_Quarto.label }}</label>
+                    {{ form.num_Quarto }}
+                    {% if form.num_Quarto.errors %}
+                        <div class="error">{{ form.num_Quarto.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.qtd_Hospedes.id_for_label }}">{{ form.qtd_Hospedes.label }}</label>
+                    {{ form.qtd_Hospedes }}
+                    {% if form.qtd_Hospedes.errors %}
+                        <div class="error">{{ form.qtd_Hospedes.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.tipo.id_for_label }}">{{ form.tipo.label }}</label>
+                    {{ form.tipo }}
+                    {% if form.tipo.errors %}
+                        <div class="error">{{ form.tipo.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.valor.id_for_label }}">{{ form.valor.label }}</label>
+                    {{ form.valor }}
+                    {% if form.valor.errors %}
+                        <div class="error">{{ form.valor.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                    {{ form.status }}
+                    {% if form.status.errors %}
+                        <div class="error">{{ form.status.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.img.id_for_label }}">{{ form.img.label }}</label>
+                    {{ form.img }}
+                    {% if form.img.errors %}
+                        <div class="error">{{ form.img.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label>
+                {{ form.descricao }}
+                {% if form.descricao.errors %}
+                    <div class="error">{{ form.descricao.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Confirmar</button>
+                <a href="{% url 'list_quartos' %}" class="btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

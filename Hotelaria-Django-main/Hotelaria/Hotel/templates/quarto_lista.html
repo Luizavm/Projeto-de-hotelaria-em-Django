@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} 
+    Catálogo de quartos
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/quarto_lista.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <h1>Catálogo L'hotel</h1>
+            <div class="header-actions">
+                {% if user.groups.all|length > 0 and 'Gerente' in user.groups.values_list|join:',' %}
+                    <a href="{% url 'addQuarto' %}" class="btn-add">+ Adicionar Quarto</a>
+                {% endif %}
+            </div>
+        </div>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="quartos-grid">
+            {% for quarto in quartos %}
+                <div class="quarto-card">
+                    <div class="quarto-image">
+                        {% if quarto.img %}
+                            <img src="{{ quarto.img.url }}" alt="Quarto {{ quarto.num_Quarto }}">
+                        {% else %}
+                            <div class="no-image">
+                                <span>Sem imagem</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                   
+                    <div class="quarto-info">
+                        <div class="quarto-header">
+                            <h3>Quarto {{ quarto.num_Quarto }}</h3>
+                            <span class="status-badge {% if quarto.status %}disponivel{% else %}reservado{% endif %}">
+                                {% if quarto.status %}Disponível{% else %}Reservado{% endif %}
+                            </span>
+                        </div>
+                       
+                        <div class="quarto-details">
+                            <p><strong>Tipo:</strong> {{ quarto.tipo }}</p>
+                            <p><strong>Hóspedes:</strong> {{ quarto.qtd_Hospedes }}</p>
+                            <p><strong>Valor:</strong> R$ {{ quarto.valor }}</p>
+                            <p><strong>Descrição:</strong> {{ quarto.descricao|truncatewords:10 }}</p>
+                        </div>
+                       
+                        <div class="quarto-actions">
+                            {% if user.groups.all|length > 0 and 'Gerente' in user.groups.values_list|join:',' %}
+                                <a href="{% url 'editQuarto' quarto.id %}" class="btn-edit">Editar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <p>Nenhum quarto cadastrado.</p>
+                    {% if user.groups.all|length > 0 and 'gerentes' in user.groups.values_list|join:',' %}
+                        <a href="{% url 'addQuarto' %}" class="btn-primary">Cadastrar Primeiro Quarto</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+    Reservar Quartos
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/reservar_quarto.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Reserva</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Concluir</button>
+        </form>
+    </div>
+{% endblock %}
