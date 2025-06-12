@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+QUARTOS
+{% endblock %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/quartos.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="quartos-container">
+    <h1 class="quartos-title">Galeria dos Quartos</h1>
+
+    <div class="quartos-grid">
+        {% for quarto in lista_quartos %}
+        <div class="quarto-card">
+            <img src="{{quarto.img.url}}" alt="Imagem do quarto {{ quarto.num_Quarto }}" class="quarto-img">
+            <div class="quarto-descricao">
+                <h3>Quarto {{ quarto.num_Quarto }}</h3>
+                <p>Tipo: {{ quarto.tipo }}</p>
+                <p>Valor: R$ {{ quarto.valor }}</p>
+                <p>
+                    Status:
+                    {% if quarto.status %}
+                    <span class="status disponivel">Disponível</span>
+                    {% else %}
+                    <span class="status reservado">Reservado</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

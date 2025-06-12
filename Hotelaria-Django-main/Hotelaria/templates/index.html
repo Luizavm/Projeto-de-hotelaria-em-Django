@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    {% block head %}
+    {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
+</head>
+<body>
+
+    {% include 'nav.html' %}
+    
+    {% block body %}
+    {% endblock %}
+
+    {% include 'footer.html' %}
+
+    <script src="{% static 'js/nav.js' %}"></script>
+</body>
+</html>
